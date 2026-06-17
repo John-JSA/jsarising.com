@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { CheckCircle, Calendar, Clock, Video } from 'lucide-react'
+import { CheckCircle, Calendar, Clock, Video, AlertCircle } from 'lucide-react'
 
 const timeSlots = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM']
 const services = ['Digital Solutions','Cloud & DevOps','Business Automation','Business Advisory','Business Development','General Consultation']
@@ -8,6 +8,7 @@ const services = ['Digital Solutions','Cloud & DevOps','Business Automation','Bu
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '', email: '', phone: '', company: '',
     service: '', date: '', time: '', notes: '', meetingType: 'video'
@@ -16,9 +17,20 @@ export default function BookingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise(r => setTimeout(r, 1500))
-    setLoading(false)
-    setSubmitted(true)
+    setError('')
+    try {
+      const res = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed to book')
+      setSubmitted(true)
+    } catch (err) {
+      setError('Something went wrong. Please try again or contact us directly via WhatsApp.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -102,6 +114,12 @@ export default function BookingPage() {
               <>
                 <h3 className="font-display font-black text-navy text-2xl mb-2">Schedule Your Session</h3>
                 <p className="text-gray-400 text-sm mb-8">Fill in your details and preferred time — we'll confirm within 2 hours.</p>
+                {error && (
+                  <div className="flex items-start gap-2 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl p-4 mb-6">
+                    <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
+                    {error}
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>

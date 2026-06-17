@@ -1,19 +1,30 @@
 'use client'
 import { useState } from 'react'
-import { Mail, Phone, Globe, MapPin, Send, CheckCircle } from 'lucide-react'
+import { Mail, Phone, Globe, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    // Simulate sending - replace with actual API call / Resend integration
-    await new Promise(r => setTimeout(r, 1500))
-    setLoading(false)
-    setSubmitted(true)
+    setError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed to send')
+      setSubmitted(true)
+    } catch (err) {
+      setError('Something went wrong. Please try again or contact us directly via WhatsApp.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -107,6 +118,12 @@ export default function ContactPage() {
               <>
                 <h3 className="font-display font-black text-navy text-2xl mb-2">Send Us a Message</h3>
                 <p className="text-gray-400 text-sm mb-8">Fill in the form and we'll respond within 24 hours.</p>
+                {error && (
+                  <div className="flex items-start gap-2 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl p-4 mb-6">
+                    <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
+                    {error}
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
