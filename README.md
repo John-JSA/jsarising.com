@@ -74,10 +74,10 @@ By default, emails send from `onboarding@resend.dev`. To send from `info@jsarisi
 
 ---
 
-## 🌐 Setting Up Your Custom Domain (jsarising.com)
+## 🌐 Setting Up Your Custom Domain (jsarising.it.com)
 
 ### 1. Buy the domain
-Purchase `jsarising.com` (or your chosen domain) from [Namecheap](https://namecheap.com), [Hostinger](https://hostinger.com), or any registrar.
+Purchase `jsarising.it.com` (or your chosen domain) from [Namecheap](https://namecheap.com), [Hostinger](https://hostinger.com), or any registrar.
 
 ### 2. Connect it to Vercel
 1. Vercel project → **Settings** → **Domains**

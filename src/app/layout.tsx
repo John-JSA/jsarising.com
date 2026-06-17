@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'JSA Rising Business Network',
     description: 'Empowering Businesses. Building Futures.',
-    url: 'https://jsarising.com',
+    url: 'https://www.jsarising.it.com',
     siteName: 'JSA Rising',
     type: 'website',
   },
