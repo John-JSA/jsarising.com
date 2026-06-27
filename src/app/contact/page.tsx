@@ -71,7 +71,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Email</p>
-                  <a href="mailto:info@jsarising.com" className="text-navy font-semibold hover:text-gold transition-colors">info@jsarising.com</a>
+                  <a href="mailto:info@jsarising.it.com" className="text-navy font-semibold hover:text-gold transition-colors">info@jsarising.it.com</a>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-white rounded-2xl p-5 border border-gray-100">
@@ -80,7 +80,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Website</p>
-                  <span className="text-navy font-semibold">www.jsarising.com</span>
+                  <span className="text-navy font-semibold">www.jsarising.it.com</span>
                 </div>
               </div>
             </div>
