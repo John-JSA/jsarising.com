@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: 'JSA Rising Business Network | We Build, Automate & Scale Businesses',
   description: 'JSA Rising Business Network empowers businesses with digital solutions, cloud & DevOps services, business automation, advisory and development services.',
   keywords: 'cloud technology, DevOps, business automation, AWS, web development, mobile apps, business advisory',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
   openGraph: {
     title: 'JSA Rising Business Network',
     description: 'Empowering Businesses. Building Futures.',

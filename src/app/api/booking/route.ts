@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { prisma } from '@/lib/db'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'info@jsarising.com'
+export const runtime = 'nodejs'
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
+  const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'JSA Rising <onboarding@resend.dev>'
+  const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'info@jsarising.com'
+
   try {
     const body = await req.json()
     const { name, email, phone, company, service, date, time, notes, meetingType } = body
@@ -13,8 +17,22 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
+    await prisma.bookingRequest.create({
+      data: {
+        name,
+        email,
+        phone: phone || null,
+        company: company || null,
+        service,
+        date,
+        time,
+        meetingType: meetingType || 'video',
+        notes: notes || null,
+      },
+    })
+
     await resend.emails.send({
-      from: 'JSA Rising Website <onboarding@resend.dev>',
+      from: FROM_EMAIL,
       to: TO_EMAIL,
       reply_to: email,
       subject: `New Consultation Booking: ${name} — ${service}`,
