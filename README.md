@@ -46,7 +46,53 @@ Your site will be live at `your-repo-name.vercel.app`
 
 ---
 
-## 📞 Contact
+## 📧 Setting Up Email (Contact & Booking Forms)
+
+The contact and booking forms use **Resend** to send emails. To activate this:
+
+### 1. Create a free Resend account
+Go to [resend.com](https://resend.com) and sign up (free tier: 100 emails/day, 3,000/month)
+
+### 2. Get your API key
+1. In the Resend dashboard, go to **API Keys**
+2. Click **Create API Key**
+3. Copy the key (starts with `re_...`)
+
+### 3. Add it to Vercel
+1. Go to your Vercel project → **Settings** → **Environment Variables**
+2. Add:
+   - `RESEND_API_KEY` = your key from step 2
+   - `CONTACT_TO_EMAIL` = `info@jsarising.com`
+3. Click **Save**
+4. Go to **Deployments** → click the **"..."** menu on the latest deployment → **Redeploy**
+
+### 4. (Optional) Verify your domain in Resend
+By default, emails send from `onboarding@resend.dev`. To send from `info@jsarising.com` instead:
+1. In Resend, go to **Domains** → **Add Domain**
+2. Add the DNS records Resend gives you to your domain registrar
+3. Once verified, update the `from` field in `src/app/api/contact/route.ts` and `src/app/api/booking/route.ts` to use your domain
+
+---
+
+## 🌐 Setting Up Your Custom Domain (jsarising.it.com)
+
+### 1. Buy the domain
+Purchase `jsarising.it.com` (or your chosen domain) from [Namecheap](https://namecheap.com), [Hostinger](https://hostinger.com), or any registrar.
+
+### 2. Connect it to Vercel
+1. Vercel project → **Settings** → **Domains**
+2. Type your domain → click **Add**
+3. Vercel shows you DNS records to add (usually an `A` record and `CNAME`)
+
+### 3. Update your domain's DNS
+1. Go to your domain registrar's DNS settings
+2. Add the records Vercel gave you
+3. Wait 10–30 minutes for DNS to propagate
+
+Your site will then be live at `www.jsarising.com` ✅
+
+---
+
 
 | | |
 |--|--|
